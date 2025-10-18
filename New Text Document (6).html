@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منيو حلويات ومشروبات</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --primary-color: #ff6b8b;
+            --secondary-color: #ffd166;
+            --accent-color: #06d6a0;
+            --dark-color: #073b4c;
+            --light-color: #f8f9fa;
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --transition: all 0.3s ease;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: var(--transition);
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nav-btn {
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            transition: var(--transition);
+            z-index: -1;
+        }
+
+        .nav-btn:hover::before {
+            width: 100%;
+        }
+
+        .nav-btn:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            padding: 180px 0 40px;
+            min-height: calc(100vh - 300px);
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .welcome-section {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .welcome-title {
+            font-size: 42px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+
+        .welcome-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .welcome-subtitle {
+            font-size: 20px;
+            color: var(--dark-color);
+            margin-bottom: 30px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .welcome-image {
+            max-width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 0 auto 30px;
+            box-shadow: var(--shadow-hover);
+            position: relative;
+        }
+
+        .welcome-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .welcome-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Menu Items Styles */
+        .menu-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: var(--dark-color);
+            position: relative;
+        }
+
+        .menu-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .menu-item:hover .item-image img {
+            transform: scale(1.1);
+        }
+
+        .item-details {
+            padding: 20px;
+            position: relative;
+        }
+
+        .item-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .item-price {
+            font-size: 18px;
+            color: var(--primary-color);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .add-to-cart {
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .add-to-cart:hover {
+            background: var(--dark-color);
+            transform: scale(1.1);
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 100;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 139, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 107, 139, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 139, 0); }
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer Styles */
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 30px;
+        }
+
+        .contact-title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+
+        .whatsapp-link {
+            display: inline-flex;
+            align-items: center;
+            background-color: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            margin: 5px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .whatsapp-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .whatsapp-link:hover::before {
+            width: 100%;
+        }
+
+        .whatsapp-link:hover {
+            transform: scale(1.05);
+        }
+
+        .whatsapp-icon {
+            margin-left: 8px;
+            font-size: 20px;
+        }
+
+        .copyright {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
+            font-size: 14px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .nav-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .nav-btn {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            
+            .welcome-title {
+                font-size: 32px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .main-content {
+                padding: 160px 0 40px;
+            }
+            
+            .fab {
+                bottom: 20px;
+                left: 20px;
+                width: 50px;
+                height: 50px;
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-title {
+                font-size: 28px;
+            }
+            
+            .menu-title {
+                font-size: 28px;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-content {
+                padding: 140px 0 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header id="mainHeader">
+        <div class="container">
+            <div class="logo-container">
+                <div class="logo" id="homeLogo">
+                    <div class="logo-text">حلوياتي</div>
+                </div>
+            </div>
+            <div class="nav-buttons">
+                <button class="nav-btn" id="dessertsBtn">الحلويات</button>
+                <button class="nav-btn" id="drinksBtn">المشروبات</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Home Page -->
+            <section id="homePage" class="page active">
+                <div class="welcome-section">
+                    <h1 class="welcome-title">مرحباً بكم في حلوياتي</h1>
+                    <p class="welcome-subtitle">استمتع بأشهى الحلويات وألذ المشروبات في مكان واحد. نقدم لكم أفضل ما لذ وطاب من الحلويات الشرقية والغربية والمشروبات المميزة.</p>
+                    <div class="welcome-image">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="صورة المحل">
+                    </div>
+                </div>
+            </section>
+
+            <!-- Desserts Page -->
+            <section id="dessertsPage" class="page">
+                <h2 class="menu-title">قائمة الحلويات</h2>
+                <div class="menu-grid" id="dessertsGrid">
+                    <!-- Desserts will be added dynamically with JavaScript -->
+                </div>
+            </section>
+
+            <!-- Drinks Page -->
+            <section id="drinksPage" class="page">
+                <h2 class="menu-title">قائمة المشروبات</h2>
+                <div class="menu-grid" id="drinksGrid">
+                    <!-- Drinks will be added dynamically with JavaScript -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Floating Action Button -->
+    <div class="fab" id="scrollToTop">
+        ↑
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="contact-info">
+                    <h3 class="contact-title">للتواصل والطلبات</h3>
+                    <a href="https://wa.me/966123456789" class="whatsapp-link" target="_blank">
+                        <span>واتساب: 966123456789+</span>
+                        <span class="whatsapp-icon">📱</span>
+                    </a>
+                    <a href="https://wa.me/966987654321" class="whatsapp-link" target="_blank">
+                        <span>واتساب: 966987654321+</span>
+                        <span class="whatsapp-icon">📱</span>
+                    </a>
+                </div>
+                <div class="copyright">
+                    &copy; 2023 جميع الحقوق محفوظة - حلوياتي
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu Data with image URLs
+        const desserts = [
+            { 
+                name: "كنافة نابلسية", 
+                price: "25 ريال", 
+                image: "https://images.unsplash.com/photo-1630277658553-8e5e7b7c8c7e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "بقلاوة", 
+                price: "20 ريال", 
+                image: "https://images.unsplash.com/photo-1587668178277-295251f900ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "أم علي", 
+                price: "18 ريال", 
+                image: "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "قطايف", 
+                price: "22 ريال", 
+                image: "https://images.unsplash.com/photo-1589302168068-964664d93dc0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "حلاوة الجبن", 
+                price: "30 ريال", 
+                image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "معمول", 
+                price: "35 ريال", 
+                image: "https://images.unsplash.com/photo-1517433670267-08c4f79f4b26?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "كيك الشوكولاتة", 
+                price: "28 ريال", 
+                image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "تشيز كيك", 
+                price: "32 ريال", 
+                image: "https://images.unsplash.com/photo-1524351199678-941a58a3df50?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            }
+        ];
+
+        const drinks = [
+            { 
+                name: "قهوة عربية", 
+                price: "15 ريال", 
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "شاي بالنعناع", 
+                price: "12 ريال", 
+                image: "https://images.unsplash.com/photo-1597481499750-3e11b45fb7e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "عصير برتقال طازج", 
+                price: "18 ريال", 
+                image: "https://images.unsplash.com/photo-1613478223719-2ab802602423?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "سموذي فراولة", 
+                price: "22 ريال", 
+                image: "https://images.unsplash.com/photo-1626074353765-517a681e50be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "مشروب الليمون بالنعناع", 
+                price: "16 ريال", 
+                image: "https://images.unsplash.com/photo-1621506289937-a8e4df240d0b?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "قهوة موكا", 
+                price: "20 ريال", 
+                image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "لاتيه", 
+                price: "18 ريال", 
+                image: "https://images.unsplash.com/photo-1561047029-3000c68339ca?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            },
+            { 
+                name: "ميلك شيك", 
+                price: "25 ريال", 
+                image: "https://images.unsplash.com/photo-1577803645773-f96470509666?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" 
+            }
+        ];
+
+        // DOM Elements
+        const mainHeader = document.getElementById('mainHeader');
+        const homeLogo = document.getElementById('homeLogo');
+        const dessertsBtn = document.getElementById('dessertsBtn');
+        const drinksBtn = document.getElementById('drinksBtn');
+        const homePage = document.getElementById('homePage');
+        const dessertsPage = document.getElementById('dessertsPage');
+        const drinksPage = document.getElementById('drinksPage');
+        const dessertsGrid = document.getElementById('dessertsGrid');
+        const drinksGrid = document.getElementById('drinksGrid');
+        const scrollToTop = document.getElementById('scrollToTop');
+
+        // Function to show a specific page
+        function showPage(pageToShow) {
+            // Hide all pages
+            homePage.classList.remove('active');
+            dessertsPage.classList.remove('active');
+            drinksPage.classList.remove('active');
+            
+            // Show the selected page
+            pageToShow.classList.add('active');
+        }
+
+        // Function to create menu items
+        function createMenuItems(items, container) {
+            container.innerHTML = '';
+            
+            items.forEach(item => {
+                const menuItem = document.createElement('div');
+                menuItem.className = 'menu-item';
+                
+                menuItem.innerHTML = `
+                    <div class="item-image">
+                        <img src="${item.image}" alt="${item.name}" loading="lazy">
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-name">${item.name}</h3>
+                        <div class="item-price">
+                            <span>${item.price}</span>
+                            <button class="add-to-cart" aria-label="إضافة إلى السلة">+</button>
+                        </div>
+                    </div>
+                `;
+                
+                container.appendChild(menuItem);
+            });
+        }
+
+        // Hide header on scroll down, show on scroll up
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                // Scrolling down
+                mainHeader.classList.add('hidden');
+            } else {
+                // Scrolling up
+                mainHeader.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
+            
+            // Show/hide scroll to top button
+            if (scrollTop > 300) {
+                scrollToTop.style.display = 'flex';
+            } else {
+                scrollToTop.style.display = 'none';
+            }
+        });
+
+        // Scroll to top function
+        scrollToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Event Listeners
+        homeLogo.addEventListener('click', () => {
+            showPage(homePage);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        dessertsBtn.addEventListener('click', () => {
+            showPage(dessertsPage);
+            createMenuItems(desserts, dessertsGrid);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        drinksBtn.addEventListener('click', () => {
+            showPage(drinksPage);
+            createMenuItems(drinks, drinksGrid);
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Initialize the menu on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createMenuItems(desserts, dessertsGrid);
+            createMenuItems(drinks, drinksGrid);
+            
+            // Add loading animation to images
+            const images = document.querySelectorAll('img');
+            images.forEach(img => {
+                img.addEventListener('load', function() {
+                    this.style.opacity = 1;
+                });
+                
+                // Set initial opacity to 0 for fade-in effect
+                img.style.opacity = 0;
+                img.style.transition = 'opacity 0.5s ease';
+            });
+        });
+    </script>
+</body>
+</html>
